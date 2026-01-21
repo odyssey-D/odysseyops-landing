@@ -2,7 +2,18 @@
 
 import { useEffect, useRef, useState } from "react";
 
-export function useScrollAnimation<T extends HTMLElement = HTMLElement>() {
+type Options = {
+  threshold?: number;
+  rootMargin?: string;
+  once?: boolean; // default true: reveal once and never toggle back
+};
+
+export function useScrollAnimation<T extends HTMLElement = HTMLElement>(
+  options: Options = {}
+) {
+  const { threshold = 0.15, rootMargin = "0px 0px -10% 0px", once = true } =
+    options;
+
   const ref = useRef<T | null>(null);
   const [isVisible, setIsVisible] = useState(false);
 
@@ -10,20 +21,44 @@ export function useScrollAnimation<T extends HTMLElement = HTMLElement>() {
     const el = ref.current;
     if (!el) return;
 
-    // Always reveal once visible (never toggle back)
+    // Fallback for environments where IntersectionObserver is unavailable/unreliable
+    if (typeof window === "undefined" || typeof IntersectionObserver === "undefined") {
+      setIsVisible(true);
+      return;
+    }
+
+    let cancelled = false;
+
+    const reveal = () => {
+      if (cancelled) return;
+      // rAF helps Safari repaint correctly after intersection changes
+      requestAnimationFrame(() => {
+        if (!cancelled) setIsVisible(true);
+      });
+    };
+
     const observer = new IntersectionObserver(
       ([entry]) => {
+        if (!entry) return;
+
         if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.disconnect();
+          reveal();
+          if (once) observer.disconnect();
+        } else if (!once) {
+          // Only toggle back if you explicitly want it
+          setIsVisible(false);
         }
       },
-      { threshold: 0.15, rootMargin: "0px 0px -10% 0px" }
+      { threshold, rootMargin }
     );
 
     observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
+
+    return () => {
+      cancelled = true;
+      observer.disconnect();
+    };
+  }, [threshold, rootMargin, once]);
 
   return { ref, isVisible };
 }
