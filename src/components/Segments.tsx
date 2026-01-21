@@ -9,8 +9,8 @@ export function Segments() {
   return (
     <section ref={ref} className="py-24 px-6 bg-black">
       <div
-        className={`max-w-4xl mx-auto transition-all duration-700 ${
-          isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+        className={`max-w-4xl mx-auto transition-transform duration-700 ${
+          isVisible ? "translate-y-0" : "translate-y-6"
         }`}
       >
         {/* Single-site */}
@@ -19,10 +19,10 @@ export function Segments() {
             For single-site operators
           </h3>
 
-          <ul className="space-y-3 text-white/75 leading-relaxed">
+          <ul className="space-y-3 text-white/80 leading-relaxed">
             {content.segments.single.map((item: string, i: number) => (
               <li key={i} className="flex gap-3">
-                <span className="mt-2 h-1.5 w-1.5 rounded-full bg-white/60 shrink-0" />
+                <span className="mt-2 h-1.5 w-1.5 rounded-full bg-white/70 shrink-0" />
                 <span>{item}</span>
               </li>
             ))}
@@ -35,10 +35,10 @@ export function Segments() {
             For multi-site operators
           </h3>
 
-          <ul className="space-y-3 text-white/75 leading-relaxed">
+          <ul className="space-y-3 text-white/80 leading-relaxed">
             {content.segments.multi.map((item: string, i: number) => (
               <li key={i} className="flex gap-3">
-                <span className="mt-2 h-1.5 w-1.5 rounded-full bg-white/60 shrink-0" />
+                <span className="mt-2 h-1.5 w-1.5 rounded-full bg-white/70 shrink-0" />
                 <span>{item}</span>
               </li>
             ))}
