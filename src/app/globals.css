@@ -38,3 +38,6 @@ body {
     transform: translateY(0);
   }
 }
+html, body {
+  background: #000;
+}
