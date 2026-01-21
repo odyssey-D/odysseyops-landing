@@ -1,21 +1,14 @@
 "use client";
 
 import { content } from "@/content";
-import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 export function Segments() {
-  const { ref, isVisible } = useScrollAnimation();
-
   return (
-    <section ref={ref} className="py-24 px-6 bg-black">
-      <div
-        className={`max-w-4xl mx-auto transition-transform duration-700 ${
-          isVisible ? "translate-y-0" : "translate-y-6"
-        }`}
-      >
+    <section className="py-24 px-6 bg-black">
+      <div className="max-w-4xl mx-auto text-white">
         {/* Single-site */}
         <div className="mb-16">
-          <h3 className="text-xl md:text-2xl font-semibold text-white mb-4">
+          <h3 className="text-xl md:text-2xl font-semibold mb-4">
             For single-site operators
           </h3>
 
@@ -31,7 +24,7 @@ export function Segments() {
 
         {/* Multi-site */}
         <div>
-          <h3 className="text-xl md:text-2xl font-semibold text-white mb-4">
+          <h3 className="text-xl md:text-2xl font-semibold mb-4">
             For multi-site operators
           </h3>
 
