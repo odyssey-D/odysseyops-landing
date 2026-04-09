@@ -12,7 +12,7 @@ export function Segments() {
           </h3>
 
           <ul className="space-y-3 text-white leading-relaxed">
-            {content.segments.single.map((item: string, i: number) => (
+            {content.segments.singleSite.points.map((item: string, i: number) => (
               <li key={i} className="flex gap-3">
                 <span className="mt-2 h-1.5 w-1.5 rounded-full bg-white shrink-0" />
                 <span className="text-white">{item}</span>
@@ -27,7 +27,7 @@ export function Segments() {
           </h3>
 
           <ul className="space-y-3 text-white leading-relaxed">
-            {content.segments.multi.map((item: string, i: number) => (
+            {content.segments.multiSite.points.map((item: string, i: number) => (
               <li key={i} className="flex gap-3">
                 <span className="mt-2 h-1.5 w-1.5 rounded-full bg-white shrink-0" />
                 <span className="text-white">{item}</span>
